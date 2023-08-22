@@ -3,7 +3,7 @@ import time
 
 import requests
 from bs4 import BeautifulSoup
-from django.core.management.base import BaseCommand
+from django.core.management.base import BaseCommand, CommandError
 
 from csfdScraper.models import Actor
 from csfdScraper.models.movie import Movie
@@ -22,6 +22,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         num_of_pages = options.get('pages')
+        if not 1 <= num_of_pages <= 9:
+            raise CommandError('Number of pages must be between 1 and 9.')
         page_steps = [1, 100, 200, 300, 400, 500, 600, 700, 800, 900]
         # use one session to keep headers, cookies and more between requests
         with requests.Session() as session:
