@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ movie.title }}</title>
+</head>
+<body>
+    <h1>{{ movie.title }} ({{ movie.year }})</h1>
+
+    <form action="{% url 'input_page' %}" method="get">
+        <button type="submit">Go Back to Input</button>
+    </form>
+
+    <h2>Actors:</h2>
+    <ul>
+        {% for actor in movie.actors.all %}
+            <li><a href="{% url 'actor_detail' actor.id %}">{{ actor.name }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

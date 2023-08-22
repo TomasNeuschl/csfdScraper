@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>New Text Input Page</title>
+    <style>
+        .page-container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .input-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .column {
+            display: inline-block;
+            vertical-align: top;
+            width: 49%;
+            padding: 10px;
+            box-sizing: border-box;
+            border-right: 1px solid #ccc;
+            text-align: center;
+        }
+
+        .column:last-child {
+            border-right: none;
+        }
+
+        .list-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .results-list {
+            list-style-type: none;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="page-container">
+    <div class="input-section">
+        <h2>Filter</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" id="filter_text" name="filter_text" placeholder="Enter text to filter">
+            <button type="submit">Apply</button>
+        </form>
+    </div>
+
+    {% if filter_text %}
+        <div class="column">
+            <h3 class="list-title">Movies:</h3>
+            <ul class="results-list">
+                {% for movie in filtered_movies %}
+                    <h2><a href="{% url 'movie_detail' movie.id %}">{{ movie.title }}</a></h2>
+                    <p>Year: {{ movie.year }}</p>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="column">
+            <h3 class="list-title">Actors:</h3>
+            <ul class="results-list">
+                {% for actor in filtered_actors %}
+                    <h2><a href="{% url 'actor_detail' actor.id %}">{{ actor.name }}</a></h2>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+</div>
+</body>
+</html>
