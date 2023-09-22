@@ -6,12 +6,8 @@ from csfdScraper.models.base import BaseModel
 
 class Actor(BaseModel):
     name = models.CharField(max_length=255)
-    normalized_name = models.CharField(max_length=255, blank=True)
+    normalized_name = models.CharField(max_length=255, blank=True, db_index=True)
     link = models.URLField()
-
-    def save(self, *args, **kwargs):
-        self.normalized_name = unidecode(self.name)
-        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name

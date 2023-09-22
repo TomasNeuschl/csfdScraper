@@ -12,8 +12,8 @@
 
     <h2>Movies:</h2>
     <ul>
-        {% for movie in actor.movie_set.all %}
-            <li><a href="{% url 'movie_detail' movie.id %}">{{ movie.title }}</a></li>
+        {% for link in actor.movies_link.all %}
+            <li><a href="{% url 'movie_detail' link.movie.id %}">{{ link.movie.title }}</a></li>
         {% endfor %}
     </ul>
 </body>

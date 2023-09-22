@@ -43,7 +43,7 @@
 <div class="page-container">
     <div class="input-section">
         <h2>Filter</h2>
-        <form method="POST">
+        <form method="GET">
             {% csrf_token %}
             <input type="text" id="filter_text" name="filter_text" placeholder="Enter text to filter">
             <button type="submit">Apply</button>

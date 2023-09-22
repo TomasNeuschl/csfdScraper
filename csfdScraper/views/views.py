@@ -7,10 +7,9 @@ from csfdScraper.models import Movie, Actor
 def input_page(request):
     filtered_movies = []
     filtered_actors = []
-    filter_text = ""
 
-    if request.method == 'POST':
-        filter_text = unidecode(request.POST.get('filter_text', ''))
+    if request.method == 'GET':
+        filter_text = unidecode(request.GET.get('filter_text', ''))
 
         filtered_movies = Movie.objects.filter(normalized_title__icontains=filter_text).order_by('-year')
 

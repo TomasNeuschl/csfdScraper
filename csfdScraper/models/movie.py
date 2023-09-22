@@ -1,16 +1,14 @@
 from django.db import models
 from unidecode import unidecode
 
-from csfdScraper.models.actor import Actor
 from csfdScraper.models.base import BaseModel
 
 
 class Movie(BaseModel):
     title = models.CharField(max_length=255)
-    normalized_title = models.CharField(max_length=255, blank=True)
+    normalized_title = models.CharField(max_length=255, blank=True, db_index=True)
     year = models.IntegerField()
     link = models.URLField()
-    actors = models.ManyToManyField(Actor)
 
     def save(self, *args, **kwargs):
         self.normalized_title = unidecode(self.title)
